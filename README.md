@@ -1,2 +1,1 @@
-# OKC
-OKC - Scraping Project
+Video Game Rating Scraping Project
