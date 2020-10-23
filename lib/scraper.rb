@@ -27,7 +27,7 @@ class Scraper
            
         
         puts "================================================================================================================================================================"
-        puts "Name: #{name}"
+        puts "Game: #{name}"
         puts "Release Date: #{release_date}"
         puts "Metacritic Rating: #{meta_score}"
         puts "User Rating: #{user_score}"
