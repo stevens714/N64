@@ -22,6 +22,8 @@ class Scraper
 
             review_hash = self.second_scrape(game_url)
 
+            user_score = Uscore.find_or_create_by(user_score)
+
             Game.new(name, release_date, meta_score, user_score, summary, review_hash[:user_review], review_hash[:critic_first], review_hash[:critic_second], review_hash[:critic_third])
             
            
