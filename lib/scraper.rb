@@ -16,32 +16,16 @@ class Scraper
             meta_score = review_games.css('.metascore_anchor')[0].text.lstrip.chomp.rstrip
             user_score = review_games.css('.metascore_anchor')[2].text.chomp.rstrip.lstrip
             summary = review_games.css('.summary')[0].text
-        
-            
             game_url = review_games.css("a")[0].attr("href")
 
-            review_hash = self.second_scrape(game_url)
+            # review_hash = self.second_scrape(game_url)
 
-            user_score = Uscore.find_or_create_by(user_score)
+            uscore = Uscore.find_or_create_by_number(user_score)
 
-            Game.new(name, release_date, meta_score, user_score, summary, review_hash[:user_review], review_hash[:critic_first], review_hash[:critic_second], review_hash[:critic_third])
+            game = Game.new(name, release_date, meta_score, uscore, summary, game_url)
             
-           
-        
-        puts "================================================================================================================================================================"
-        puts "Game: #{name}"
-        puts "Release Date: #{release_date}"
-        puts "Metacritic Rating: #{meta_score}"
-        puts "User Rating: #{user_score}"
-        puts "Game Summary:  #{summary}"
-        puts "================================================================================================================================================================"
-        puts "User Review: #{review_hash[:user_review]}"
-        puts "First Critic Review: #{review_hash[:critic_first]}"
-        puts "Second Critic Review: #{review_hash[:critic_second]}"
-        puts "Third Critic Review: #{review_hash[:critic_third]}"
-            
+        end
     end
-end
 
     def second_scrape(game_url)
         game_html = open(@base_url + game_url, 'User-Agent' => 'chrome')
