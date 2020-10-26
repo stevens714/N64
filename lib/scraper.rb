@@ -14,13 +14,11 @@ class Scraper
             name = review_games.css('h3').text
             release_date = review_games.css('.clamp-details span')[2].text
             meta_score = review_games.css('.metascore_anchor')[0].text.lstrip.chomp.rstrip
-            user_score = review_games.css('.metascore_anchor')[2].text.chomp.rstrip.lstrip
+            user_score = review_games.css('.metascore_anchor')[2].text.chomp.rstrip.lstrip.to_f
             summary = review_games.css('.summary')[0].text
             game_url = review_games.css("a")[0].attr("href")
 
-            # review_hash = self.second_scrape(game_url)
-
-            uscore = Uscore.find_or_create_by_number(user_score)
+            uscore = Uscore.new(user_score, name)
 
             game = Game.new(name, release_date, meta_score, uscore, summary, game_url)
             

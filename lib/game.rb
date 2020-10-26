@@ -1,19 +1,18 @@
 class Game
     
     @@all = []
+    @@all_eight_plus = []
+    @@all_under_eight = []
 
-    attr_accessor :name, :release_date, :meta_score, :uscore, :summary, :user_review, :game, :game_url, :critic_first, :critic_second, :critic_third
+    attr_accessor :name, :release_date, :meta_score, :uscore, :number, :summary, :user_review, :game, :game_url, :critic_first, :critic_second, :critic_third
 
     def initialize(name, release_date, meta_score, uscore, summary, game_url)
-
-        # user_review,
 
         @name = name
         @release_date = release_date
         @meta_score = meta_score
         @uscore = uscore
         @summary = summary
-        # @user_review = user_review
         @game_url = game_url
         @@all << self
     end
@@ -22,27 +21,83 @@ class Game
         @@all
     end
 
+
     def print_game_release_meta
         puts "#{@name} released on #{@release_date} with Metacriting Rating of #{@meta_score}"
     end
+
+    def self.print_eight_or_over
+            #binding.pry
+            more_than = []
+            less_than = []
+            Game.all.each_with_index do |instance, index| 
+                if instance.uscore.number >= 8
+                    more_than << instance
+                elsif
+                    instance.uscore.number < 8
+                    less_than << instance
+                end
+                
+                
+
+            end
+            more_than.each_with_index do |instance, index|
+                puts "#{index+1} #{instance.name} released on #{instance.release_date} with Metacriting Rating of #{instance.meta_score}"
+                puts " "
+            end
+
+        end
 
     def self.print_all_games_to_be_selected
         @@all.each.with_index do |game, index| 
             puts "Game #{index + 1}. ======================"
             game.print_game_release_meta
             puts ""
-            # sleep(1)
         end
     end
+
+    def self.game_over_eight
+        over_eight = Game.all.select{|game| game.uscore.number >= 8}
+        over_eight.each.with_index do |game, index|
+            puts "Game #{index + 1}. ======================="
+            game.print_game_release_meta
+            puts ""
+        end
+    end
+
+    def self.game_under_eight
+        under_eight = Game.all.select{|game| game.uscore.number < 8}
+        under_eight.each.with_index do |game, index|
+            puts "Game #{index + 1}. ======================="
+            game.print_game_release_meta
+            puts""
+        end
+    end
+
+
 
     def print_full_game_info
             check_for_game
             puts "============================"
-            print_game_release_meta
+            sleep (1)
+            self.print_game_release_meta
             puts "User Score: #{uscore.number}"
+            sleep (1)
+            puts "========================================="
+            puts "Summary: #{@summary}"
+            sleep (1)
+            puts "========================================="
             puts "Critic 1: #{@critic_first}"
+            sleep (1)
+            puts "========================================="
+            sleep (1)
             puts "Critic 2: #{@critic_second}"
+            sleep (1)
+            puts "=============================================="
             puts "Critic 3: #{@critic_third}"
+            sleep (1)
+            puts "=============================================="
+            puts "Top User Review: #{@user_review}"
             puts " "
             puts @game
     end
@@ -51,6 +106,7 @@ class Game
         if @game === nil
             hash = Scraper.new.second_scrape(@game_url)
             @game = hash[:review]
+            @user_review = hash[:user_review]
             @critic_first = hash[:critic_first]
             @critic_second = hash[:critic_second]
             @critic_third = hash[:critic_third]
