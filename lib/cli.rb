@@ -34,8 +34,8 @@ class CLI
             game_select = gets.chomp
             select_to_index = game_select.to_i - 1
             Game.all[select_to_index].print_full_game_info
-            sleep(5)
-            puts "I hope you have enjoyed your time travel experience!"
+            sleep(3)
+            Game.loopey
             
 
 
@@ -46,8 +46,8 @@ class CLI
             game_select = gets.chomp
             select_to_index = game_select.to_i - 1
             Game.game_over_eight[select_to_index].print_full_game_info
-            sleep(5)
-            puts "I hope you have enjoyed your time travel experience!"
+            sleep(3)
+            Game.loopey
 
         elsif user_input == "3"
             Uscore.sort_uscore
@@ -56,8 +56,8 @@ class CLI
             game_select = gets.chomp
             select_to_index = game_select.to_i - 1
             Game.game_under_eight[select_to_index].print_full_game_info
-            sleep(5)
-            puts "I hope you have enjoyed your time travel experience!"
+            sleep(3)
+            Game.loopey
 
         elsif user_input == "4"
             puts "Thanks for visiting, come back anytime!"

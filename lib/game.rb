@@ -20,6 +20,8 @@ class Game
     end
 
 
+
+
     def print_game_release_meta
         puts "#{@name} released on #{@release_date} with Metacriting Rating of #{@meta_score}"
     end
@@ -48,6 +50,45 @@ class Game
             puts "Game #{index + 1}. ======================="
             game.print_game_release_meta
             puts""
+        end
+    end
+
+    def self.loopey
+        sleep(5)
+        puts "I hope you have enjoyed your time travel experience!"
+        sleep(2)
+        puts "Please select from the following options:"
+        sleep(1)
+        puts "Enter 1 to view games with a user rating of 8 or greater"
+        sleep(1)
+        puts "Enter 2 to view games with a user rating under 8"
+        sleep(1)
+        puts "Enter 3 to exit the application"
+    puts "Enter 1, 2, 3"
+    user_input = gets.chomp
+
+        if user_input == "1"
+            self.game_over_eight
+            puts "Enter a number 1-47 to view more details about that game!"
+            game_select = gets.chomp
+            select_to_index = game_select.to_i - 1
+            Game.game_over_eight[select_to_index].print_full_game_info
+            self.loopey
+
+        elsif user_input == "2"
+            self.game_under_eight
+            puts "Enter a number 1-24 to view more details about that game!"
+            game_select = gets.chomp
+            select_to_index = game_select.to_i - 1
+            Game.game_under_eight[select_to_index].print_full_game_info
+            self.loopey
+
+        elsif user_input == "3"
+            sleep(2)
+            puts "Come back anytime!"
+
+        else 
+            puts "seeya later"
         end
     end
 
