@@ -1,8 +1,6 @@
 class Game
     
     @@all = []
-    @@all_eight_plus = []
-    @@all_under_eight = []
 
     attr_accessor :name, :release_date, :meta_score, :uscore, :number, :summary, :user_review, :game, :game_url, :critic_first, :critic_second, :critic_third
 
@@ -26,27 +24,6 @@ class Game
         puts "#{@name} released on #{@release_date} with Metacriting Rating of #{@meta_score}"
     end
 
-    def self.print_eight_or_over
-            #binding.pry
-            more_than = []
-            less_than = []
-            Game.all.each_with_index do |instance, index| 
-                if instance.uscore.number >= 8
-                    more_than << instance
-                elsif
-                    instance.uscore.number < 8
-                    less_than << instance
-                end
-                
-                
-
-            end
-            more_than.each_with_index do |instance, index|
-                puts "#{index+1} #{instance.name} released on #{instance.release_date} with Metacriting Rating of #{instance.meta_score}"
-                puts " "
-            end
-
-        end
 
     def self.print_all_games_to_be_selected
         @@all.each.with_index do |game, index| 
